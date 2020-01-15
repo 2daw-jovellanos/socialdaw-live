@@ -2,7 +2,9 @@
 \dawfony\Ti::extend("view/mainview.phtml");
 \dawfony\Ti::startBlock("content");
 ?>
-Listado    
+<div class="alert alert-success mt-3" role="alert">
+  <?=$msg?>
+</div>
 <?php
     \dawfony\Ti::endBlock();
     \dawfony\Ti::endExtend();

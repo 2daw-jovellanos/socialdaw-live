@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bddc9006d80a4306c2a3eaab81515c65",
+    "content-hash": "3babc0aebf553ccf3cedac3e14f124e7",
     "packages": [
         {
             "name": "noahbuscher/macaw",
@@ -55,22 +55,27 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "dev-master",
+            "version": "v4.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a79a83e7c470015e00387b3c24eb37bab812fe61"
+                "reference": "dca1ab7d877bc4b664b43604657a2b5fbe2b4ecb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a79a83e7c470015e00387b3c24eb37bab812fe61",
-                "reference": "a79a83e7c470015e00387b3c24eb37bab812fe61",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/dca1ab7d877bc4b664b43604657a2b5fbe2b4ecb",
+                "reference": "dca1ab7d877bc4b664b43604657a2b5fbe2b4ecb",
                 "shasum": ""
             },
             "replace": {
                 "twitter/bootstrap": "self.version"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -97,7 +102,7 @@
                 "sass",
                 "web"
             ],
-            "time": "2020-01-14T13:47:24+00:00"
+            "time": "2019-11-28T12:59:49+00:00"
         },
         {
             "name": "victorjfg/dawfony",
@@ -137,8 +142,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "noahbuscher/macaw": 20,
-        "victorjfg/dawfony": 20,
-        "twbs/bootstrap": 20
+        "victorjfg/dawfony": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
