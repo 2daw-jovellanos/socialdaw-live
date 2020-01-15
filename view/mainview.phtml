@@ -1,5 +1,5 @@
 <?php
-// necesitamos el nombre del directorio para formar las rutas:
+// necesitamos la trayectoria de la URL para formar las rutas:
 global $URL_PATH;
 ?>
 <!DOCTYPE html>
@@ -14,9 +14,9 @@ global $URL_PATH;
         SocialDaw
     <?php \dawfony\Ti::endBlock(); ?>
     </title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
-    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- Bootstrap. Las rutas deben ser absolutas, porque estamos haciendo rewrite -->
+    <link rel="stylesheet" href="<?=$URL_PATH?>/vendor/twbs/bootstrap/dist/css/bootstrap.css">
+    <script src="<?=$URL_PATH?>/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 
 <body class="container">

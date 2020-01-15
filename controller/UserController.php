@@ -25,7 +25,8 @@ class UserController extends Controller
         $user->nombre = $_REQUEST["nombre"];
         (new Orm) -> crearUsuario($user);
         // generar la vista
-        $msg = "Se ha procesado su solicitud de registro. Ahora puede hacer login";
+        $msg = "Ok, <strong>$user->login</strong>. Se ha procesado tu solicitud de registro."
+            ." Ahora puedes hacer login";
         echo \dawfony\Ti::render("view/msg-success.phtml", compact("msg"));
     }
 

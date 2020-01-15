@@ -13,6 +13,7 @@ Macaw::post($URL_PATH . '/registro', "controller\UserController@procesarRegistro
 
 // Captura de URL no definidas.
 Macaw::error(function() {
+  http_response_code(404);
   echo '404 :: Not Found';
 });
 

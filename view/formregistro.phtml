@@ -1,9 +1,10 @@
 <?php
+global $URL_PATH;
 \dawfony\Ti::extend("view/mainview.phtml");
 \dawfony\Ti::startBlock("content");
 ?>
 
-<form class="mt-4" action="registro" method="POST">
+<form class="mt-4" action="<?=$URL_PATH?>/registro" method="POST">
     <div class="form-group row">
         <label for="login" class="col-md-2 col-form-label">Login</label>
         <div class="col-sm-10">
