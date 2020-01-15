@@ -1,9 +1,9 @@
 <?php
-global $URL_PATH;
+global $URL_PATH; // Necesitamos la trayectoria de la URL a la app
 \dawfony\Ti::extend("view/mainview.phtml");
 \dawfony\Ti::startBlock("content");
 ?>
-
+<?php /* El action es una ruta. Necesita el URL_PATH */?>
 <form class="mt-4" action="<?=$URL_PATH?>/registro" method="POST">
     <div class="form-group row">
         <label for="login" class="col-md-2 col-form-label">Login</label>
