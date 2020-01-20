@@ -8,8 +8,7 @@
     },
     "authors": [
         {
-            "name": "vjfernandez",
-            "email": "victor.fernandezgil@educa.madrid.org"
+            "name": "tu nombre"
         }
     ],
     "minimum-stability": "dev"
