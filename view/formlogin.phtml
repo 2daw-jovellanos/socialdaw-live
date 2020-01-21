@@ -1,0 +1,35 @@
+<?php
+global $URL_PATH; // Necesitamos la trayectoria de la URL a la app
+\dawfony\Ti::extend("view/mainview.phtml");
+\dawfony\Ti::startBlock("content");
+$msg = $msg ?? "";
+$login = $login ?? "";
+?>
+
+<?php if ($msg): ?>
+<div class="alert alert-danger mt-3" role="alert">
+  <?=$msg?>
+</div>
+<?php endif; ?>
+<?php /* El action es una ruta para el router. Necesita el URL_PATH */?>
+<form class="mt-4 offset-sm-3 col-sm-6" action="<?=$URL_PATH?>/login" method="POST">
+    <div class="form-group row">
+        <label for="login" class="col-sm-2 col-form-label">Login</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="login" value="<?=$login?>" name="login">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="pass1" class="col-sm-2 col-form-label">contraseña: </label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="pass1" value="" name="password">
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary  w-100">Inicial sesion</button>
+    </div>
+</form>
+<?php
+\dawfony\Ti::endBlock();
+\dawfony\Ti::endExtend();
+?>

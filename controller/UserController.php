@@ -37,6 +37,28 @@ class UserController extends Controller
 
     public function procesarLogin()
     {
-        echo "TO - DO: Procesar login";
+        
+        $login = strtolower($_REQUEST["login"]);
+        $password = $_REQUEST["password"];
+        $user = (new Orm) -> obtenerUsuario($login);
+        if (!$user) {
+            $user = new Usuario;
+        }
+        if (!password_verify($password, $user->password))  {
+            $msg = "login o contraseña incorrecto";
+            echo \dawfony\Ti::render("view/formlogin.phtml", compact("msg", "login"));
+        } else {
+            $_SESSION["login"] = $login;
+            $_SESSION["rol_id"] = $user->rol_id;
+            global $URL_PATH;
+            header("Location: $URL_PATH/");
+        }
+
+    }
+    public function hacerLogout()
+    {
+        global $URL_PATH;
+        session_destroy();
+        header("Location: $URL_PATH/");
     }
 }

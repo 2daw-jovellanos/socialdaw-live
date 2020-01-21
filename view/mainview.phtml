@@ -17,6 +17,13 @@ global $URL_PATH;
     <?php /* Bootstrap. Las rutas deben ser absolutas, porque estamos haciendo rewrite */ ?>
     <link rel="stylesheet" href="<?= $URL_PATH ?>/vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <script src="<?= $URL_PATH ?>/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="<?= $URL_PATH ?>/js/main.js"></script>
+    <script>
+        var URL_PATH="<?= $URL_PATH ?>"; // Pasamos el URL_PATH de php a Javascript.
+    </script>
+    <?php /*Para añadir lineas al head desde las plantillas derivadas*/ ?>
+    <?php \dawfony\Ti::startBlock("head"); ?>
+    <?php \dawfony\Ti::endBlock(); ?>
 </head>
 
 <body class="container">
@@ -38,13 +45,28 @@ global $URL_PATH;
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                
+                <?php if (!isset($_SESSION["login"])): // no hay usuario logueado?>
+                <li class="nav-item">
                     <a class="nav-link" href="registro">Registro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login">Login</a>
                 </li>
+                <?php else: // si hay usuario logueado?>
+                <li class="nav-item">
+                    <a class="nav-link" href="siguiendo">Siguiendo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="perfil">Tu perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="confirmarLogout()">Cerrar sesión</a>
+                </li>
+                <?php endif;?>
+  
             </ul>
+
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
