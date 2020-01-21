@@ -19,7 +19,7 @@ use dawfony\Klasto;
      */
     public function obtenerUsuario($user) {
         return Klasto::getInstance() -> queryOne(
-            "SELECT login, password, nombre, email, rol_id from USUARIO WHERE login = ? ",
+            "SELECT login, password, nombre, email, rol_id from usuario WHERE login = ? ",
             [$user],
             "model\Usuario"
         );
