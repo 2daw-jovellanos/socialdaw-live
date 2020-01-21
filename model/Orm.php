@@ -15,7 +15,7 @@ use dawfony\Klasto;
     /**
      * Obtiene usuario
      *
-     * @return mixesd el usuario o null si no se encuentra.¡
+     * @return mixed el usuario o null si no se encuentra.¡
      */
     public function obtenerUsuario($user) {
         return Klasto::getInstance() -> queryOne(
