@@ -1,9 +1,9 @@
 <?php
-
 namespace controller;
-
 use \model\Usuario;
 use \model\Orm;
+require_once ("funciones.php");
+
 
 class UserController extends Controller
 {
@@ -19,10 +19,10 @@ class UserController extends Controller
 
         // hacer la grabación
         $user = new Usuario();
-        $user->login = strtolower($_REQUEST["login"]);
+        $user->login = sanitizar(strtolower($_REQUEST["login"]));
         $user->password = password_hash($_REQUEST["password"], PASSWORD_DEFAULT);
-        $user->email = $_REQUEST["email"];
-        $user->nombre = $_REQUEST["nombre"];
+        $user->email = sanitizar($_REQUEST["email"]);
+        $user->nombre = sanitizar($_REQUEST["nombre"]);
         (new Orm) -> crearUsuario($user);
         // generar la vista
         $msg = "Ok, <strong>$user->login</strong>. Se ha procesado tu solicitud de registro."
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function procesarLogin()
     {
         
-        $login = strtolower($_REQUEST["login"]);
+        $login = strtolower(sanitizar($_REQUEST["login"]));
         $password = $_REQUEST["password"];
         $user = (new Orm) -> obtenerUsuario($login);
         if (!$user) {
@@ -48,10 +48,11 @@ class UserController extends Controller
             $msg = "login o contraseña incorrecto";
             echo \dawfony\Ti::render("view/formlogin.phtml", compact("msg", "login"));
         } else {
+            //GUARDAR CREDENCIALES
             $_SESSION["login"] = $login;
             $_SESSION["rol_id"] = $user->rol_id;
             global $URL_PATH;
-            header("Location: $URL_PATH/");
+            header("Location: $URL_PATH/"); // Mandar al cliente al inicio
         }
 
     }

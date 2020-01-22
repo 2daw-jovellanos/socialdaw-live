@@ -25,5 +25,42 @@ use dawfony\Klasto;
         );
     }
 
+    /**
+     * 
+     */
+    public function obtenerUltimosPosts($page=0) {
+
+        /** TO-DO: Está sin probar aún */
+
+        global $config;
+        $limit = $config["post_per_page"];
+        $offset = $page * $limit;
+        $posts = Klasto::getInstance() -> query(
+            "SELECT `id`, `fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login`"
+                ." FROM `post`"
+                ." ORDER BY `fecha` DESC"
+                ." LIMIT $limit OFFSET $offset"
+                ,
+            [],
+            "model\Post"
+        );
+        $categorias = Klasto::getInstance() -> query(
+            "SELECT id, descripcion"
+                ." FROM categoria_post"
+        );
+        foreach ($posts as $post) {
+            $post->numLikes = Klasto::getInstance() -> queryOne(
+                "SELECT count(*) as cuenta FROM `like` WHERE post_id = ?",
+                [$post->id]
+            )["cuenta"];
+            $post->numComments = Klasto::getInstance() -> queryOne(
+                "SELECT count(*) as cuenta FROM comenta WHERE post_id = ?",
+                [$post->id]
+            )["cuenta"];
+            $post->categoria = $categorias[$post->categoria_post_id]["descripcion"];
+        }
+        return $posts;
+    }
+
 
 }
