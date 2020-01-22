@@ -28,6 +28,14 @@ use dawfony\Klasto;
     /**
      * 
      */
+
+    public function obtenerCategorias() {
+        return Klasto::getInstance() -> query(
+            "SELECT id, descripcion"
+                ." FROM categoria_post"
+        );
+    }
+
     public function obtenerUltimosPosts($page=0) {
 
         /** TO-DO: Está sin probar aún */
@@ -44,10 +52,7 @@ use dawfony\Klasto;
             [],
             "model\Post"
         );
-        $categorias = Klasto::getInstance() -> query(
-            "SELECT id, descripcion"
-                ." FROM categoria_post"
-        );
+        $categorias = $this->obtenerCategorias();
         foreach ($posts as $post) {
             $post->numLikes = Klasto::getInstance() -> queryOne(
                 "SELECT count(*) as cuenta FROM `like` WHERE post_id = ?",

@@ -1,0 +1,37 @@
+<?php
+global $URL_PATH; // Necesitamos la trayectoria de la URL a la app
+\dawfony\Ti::extend("view/mainview.phtml");
+\dawfony\Ti::startBlock("content");
+?>
+<h1> Nuevo Post</h1>
+<?php /* El action es una ruta. Necesita el URL_PATH */ ?>
+<form class="mt-4" action="<?= $URL_PATH ?>/post/new" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <textarea class="form-control" placeholder="Resumen" rows="2" name="resumen"></textarea>
+    </div>
+    <div class="form-group">
+        <textarea placeholder="Texto completo" class="form-control" rows="6" name="texto"></textarea>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-6">
+        <label for="categoria">Sube una foto:</label>
+            <select id="categoria" name="categoria_id">
+                <?php foreach($categorias as $categoria): ?>
+                    <option value="<?=$categoria["id"]?>"><?=$categoria["descripcion"]?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <label for="filefoto">Sube una foto:</label>
+            <input type="file" class="form-control-file" id="filefoto" name="foto">
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+
+</form>
+<?php
+\dawfony\Ti::endBlock();
+\dawfony\Ti::endExtend();
+?>

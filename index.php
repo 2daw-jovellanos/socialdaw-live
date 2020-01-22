@@ -27,7 +27,9 @@ Macaw::post($URL_PATH . '/login', "controller\UserController@procesarLogin");
 // logout
 Macaw::get($URL_PATH . '/logout', "controller\UserController@hacerLogout");
 
-
+// nuevo post
+Macaw::get($URL_PATH . '/post/new', "controller\PostController@formularioNuevoPost");
+Macaw::post($URL_PATH . '/post/new', "controller\PostController@procesarNuevoPost");
 
 // Captura de URL no definidas. Página de respuesta 404 personalizada
 Macaw::error(function() {
