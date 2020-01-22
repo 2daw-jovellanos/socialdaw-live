@@ -1,8 +1,25 @@
 <?php 
+global $URL_PATH;
 \dawfony\Ti::extend("view/mainview.phtml");
 \dawfony\Ti::startBlock("content");
 ?>
-Listado    
+<?php foreach($posts as $post): ?>
+<div class="row border border-secondary rounded ml-0 mr-0 mt-1">
+    <div class="col-sm-2">
+        <img class="img-fluid rounded" src="<?=$post->foto?>" alt="Imagen: <?=$post->resumen?>">
+    </div>
+    <div class="col-sm-7">
+        <h4><?=$post->resumen?>"</h4>
+        <a href="<?=$URL_PATH?>/post/<?=$post->id?>" class="btn btn-primary btn-outline">Leer más</a>
+    </div>
+    <div class="col-sm-3 ">
+        <h5>Por <a href="<?=$URL_PATH?>/perfil/<?=$post->usuario_login?>"><?=$post->usuario_login?></a></h5>
+        <h5>en <?=$post->categoria?></h5>
+        <h6>en <?=$post->fecha?></h6>
+    </div>
+</div>
+<?php endforeach; ?>
+<?php require "view/botoninsertar.phtml"?>
 <?php
     \dawfony\Ti::endBlock();
     \dawfony\Ti::endExtend();

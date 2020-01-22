@@ -7,8 +7,7 @@ class PostController extends Controller {
 
     function listarLoUltimo() {
         $posts = (new Orm) ->obtenerUltimosPosts();
-        echo "<pre>".var_dump($posts)."</pre>";
-        echo Ti::render("view/listado.phtml",[]);
+        echo Ti::render("view/listado.phtml",compact("posts"));
     }
 
 }

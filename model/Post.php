@@ -10,7 +10,7 @@ class Post {
     public $categoria_post_id;
     public $usuario_login;
 
-    public $categoria ="";
+    public $categoria = "";
     public $numLikes = 0;
     public $numComments = 0;
 }
