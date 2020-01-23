@@ -35,7 +35,6 @@ class PostController extends Controller {
         }
         // TO DO: Comprobaciones
 
-
         $post = new Post;
         $post -> fecha = date('Y-m-d H:i:s');
         $post->resumen = sanitizar($_REQUEST["resumen"]);
@@ -53,6 +52,10 @@ class PostController extends Controller {
         $post = (new Orm) ->obtenerPost($postid);
         //var_dump($post);
         echo Ti::render("view/post.phtml", compact("post"));
+    }
+
+    function procesarNuevoComentario() {
+        
     }
 
 }

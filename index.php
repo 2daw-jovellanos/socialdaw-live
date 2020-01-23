@@ -37,6 +37,11 @@ Macaw::get($URL_PATH . '/post/(:num)', "controller\PostController@verPost");
 Macaw::get($URL_PATH . '/post/new', "controller\PostController@formularioNuevoPost");
 Macaw::post($URL_PATH . '/post/new', "controller\PostController@procesarNuevoPost");
 
+// nuevo comentario
+Macaw::post($URL_PATH . '/comentario/new', "controller\PostController@procesarNuevoComentario");
+
+
+
 // API JSON
 Macaw::get($URL_PATH . '/api/like/(:num)', "controller\ApiController@likeClicked");
 Macaw::get($URL_PATH . '/api/existe/(:any)', "controller\ApiController@existeLogin");
