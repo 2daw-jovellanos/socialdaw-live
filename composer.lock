@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3babc0aebf553ccf3cedac3e14f124e7",
+    "content-hash": "21af9a049f88b1015f6cc4da3a25a292",
     "packages": [
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "37dd61c45fdc51100ba445551ce278f6401c246f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/37dd61c45fdc51100ba445551ce278f6401c246f",
+                "reference": "37dd61c45fdc51100ba445551ce278f6401c246f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "dev-master#72de02a7b80c6bb8864ef9bf66d41d2f58f826bd"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ],
+                "exclude-from-classmap": [
+                    "/library/HTMLPurifier/Language/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2020-01-21T16:17:18+00:00"
+        },
         {
             "name": "noahbuscher/macaw",
             "version": "dev-master",
@@ -142,7 +192,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "noahbuscher/macaw": 20,
-        "victorjfg/dawfony": 20
+        "victorjfg/dawfony": 20,
+        "ezyang/htmlpurifier": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

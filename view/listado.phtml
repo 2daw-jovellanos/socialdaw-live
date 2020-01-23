@@ -5,27 +5,34 @@ global $URL_PATH;
 ?>
 <?php foreach ($posts as $post) : ?>
     <div class="row border border-secondary rounded ml-0 mr-0 mt-1">
-        <div class="col-sm-2">
+        <div class="col-sm-4 p-1">
             <img class="img-fluid rounded" src="<?= $URL_PATH ?>/assets/foto/<?= $post->foto ?>" alt="Imagen: <?= $post->resumen ?>">
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-5">
             <h4><?= $post->resumen ?></h4>
             <div class="row">
                 <div class="col-sm-6"><a href="<?= $URL_PATH ?>/post/<?= $post->id ?>" class="btn btn-outline-primary btn-sm">Leer más</a></div>
                 <div class="offset-sm-1 col-sm-5">
-                    <i class="fa fa-heart"></i> <?= $post->numLikes ?>
+                    <i class="fa fa-heart<?=($post->like?" text-danger":"")?>"></i> <?= $post->numLikes ?>
                     <i class="fa fa-comments"></i> <?= $post->numComments ?>
                 </div>
             </div>
         </div>
         <div class="col-sm-3 ">
-            <h5>Por <a href="<?= $URL_PATH ?>/perfil/<?= $post->usuario_login ?>"><?= $post->usuario_login ?></a></h5>
+            <h5>
+            Por <a href="<?= $URL_PATH ?>/perfil/<?= $post->usuario_login ?>"><?= $post->usuario_login ?></a>
+            <img class="img-fluid rounded" src="https://avatars.dicebear.com/v2/gridy/<?= $post->usuario_login ?>.svg?options[width]=32&options[height]=32" alt="avatar: <?= $post->usuario_login ?>">
+            </h5>
             <h5>en <?= $post->categoria ?></h5>
-            <h6>en <?= $post->fecha ?></h6>
+            <h6>el <?= $post->fecha ?></h6>
         </div>
     </div>
 <?php endforeach; ?>
-<?php require "view/botoninsertar.phtml" ?>
+<?php
+if (isset($_SESSION["rol_id"])) {
+    require "view/botoninsertar.phtml";
+}
+?>
 <?php
 \dawfony\Ti::endBlock();
 \dawfony\Ti::endExtend();

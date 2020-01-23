@@ -1,0 +1,38 @@
+<?php
+global $URL_PATH;
+\dawfony\Ti::extend("view/mainview.phtml");
+\dawfony\Ti::startBlock("content");
+?>
+
+<div class="row m-2">
+    <div class="col-2">
+        <img class="img-fluid rounded" src="https://avatars.dicebear.com/v2/gridy/<?= $user->login ?>.svg" alt="avatar: <?= $user->login ?>">
+    </div>
+    <div class="col-9">
+        <h2><?= $user->login ?></h2>
+        <h5><?= $user->nombre ?></h5>
+
+        <div>
+            <i class="fa fa-users"></i>
+            Siguiendo:<?= $user->siguiendo ?>;
+            Seguidores: <?= $user->seguidores ?>;
+        </div>
+    </div>
+</div>
+<h4>Posts de <?= $user->login ?></h4>
+<table class="table">
+    <?php foreach ($posts as $post) : ?>
+        <tr>
+            <td>
+                <a href="<?= $URL_PATH . "/post/" . $post->id ?>"><?=strlen($post->resumen) > 150 ? substr($post->resumen,0,150)."..." : $post->resumen; ?></a>
+            </td>
+            <td><?= $post->fecha ?></td>
+            <td><?= $post->categoria ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+<?php
+\dawfony\Ti::endBlock();
+\dawfony\Ti::endExtend();
+?>

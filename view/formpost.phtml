@@ -1,23 +1,36 @@
 <?php
 global $URL_PATH; // Necesitamos la trayectoria de la URL a la app
 \dawfony\Ti::extend("view/mainview.phtml");
-\dawfony\Ti::startBlock("content");
+?>
+
+<?php /* --------------------------------------------------------------------- */ ?>
+
+<?php \dawfony\Ti::startBlock("head"); ?>
+<!-- Include trumbowyg editor -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/trumbowyg.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/trumbowyg.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/langs/es.js" integrity="sha256-EJXkD+I8Q24ePB4zheYqkfIKmlz2jYRUBLUzrwSdAt4=" crossorigin="anonymous"></script>
+<?php \dawfony\Ti::endBlock(); ?>
+
+<?php /* --------------------------------------------------------------------- */ ?>
+
+<?php \dawfony\Ti::startBlock("content");
 ?>
 <h1> Nuevo Post</h1>
 <?php /* El action es una ruta. Necesita el URL_PATH */ ?>
 <form class="mt-4" action="<?= $URL_PATH ?>/post/new" method="POST" enctype="multipart/form-data">
     <div class="form-group">
-        <textarea class="form-control" placeholder="Resumen" rows="2" name="resumen"></textarea>
+        <textarea class="form-control" placeholder="Resumen" rows="2" name="resumen" id="resumen"></textarea>
     </div>
     <div class="form-group">
-        <textarea placeholder="Texto completo" class="form-control" rows="6" name="texto"></textarea>
+        <textarea placeholder="Texto completo" class="form-control" rows="6" name="texto" id="texto"></textarea>
     </div>
     <div class="form-group row">
         <div class="col-sm-6">
-        <label for="categoria">Sube una foto:</label>
+            <label for="categoria">Sube una foto:</label>
             <select id="categoria" name="categoria_id">
-                <?php foreach($categorias as $categoria): ?>
-                    <option value="<?=$categoria["id"]?>"><?=$categoria["descripcion"]?></option>
+                <?php foreach ($categorias as $categoria) : ?>
+                    <option value="<?= $categoria["id"] ?>"><?= $categoria["descripcion"] ?></option>
                 <?php endforeach ?>
             </select>
         </div>
@@ -29,8 +42,14 @@ global $URL_PATH; // Necesitamos la trayectoria de la URL a la app
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
-
 </form>
+<script>
+    <?php /* trumbowyg es un editor de texto enriquecido. Lo activamos con jquery */ ?>
+    $('#texto').trumbowyg({
+        lang: 'es'
+    });
+</script>
+
 <?php
 \dawfony\Ti::endBlock();
 \dawfony\Ti::endExtend();

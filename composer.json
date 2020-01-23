@@ -4,7 +4,8 @@
     "require": {
         "noahbuscher/macaw": "dev-master",
         "victorjfg/dawfony": "dev-master",
-        "twbs/bootstrap": "4.4.1"
+        "twbs/bootstrap": "4.4.1",
+        "ezyang/htmlpurifier": "dev-master"
     },
     "authors": [
         {

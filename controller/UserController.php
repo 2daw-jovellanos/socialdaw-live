@@ -62,4 +62,14 @@ class UserController extends Controller
         session_destroy();
         header("Location: $URL_PATH/");
     }
+
+    public function verPerfil($login)
+    {
+        $orm = new Orm;
+        $user = $orm->obtenerUsuario($login);
+        $posts = $orm->obtenerPostsPorUsuario($login);
+        echo \dawfony\Ti::render("view/perfil.phtml",compact("user", "posts"));
+    }
+
+
 }

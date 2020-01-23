@@ -7,4 +7,6 @@ class Usuario {
     public $email;
     public $nombre;
     public $rol_id;
+    public $seguidores = 0;
+    public $siguiendo = 0;
 }

@@ -36,10 +36,44 @@ use dawfony\Klasto;
         );
     }
 
+    public function contarLikes($postid) {
+        return Klasto::getInstance() -> queryOne(
+            "SELECT count(*) as cuenta FROM `like` WHERE post_id = ?",
+            [$postid]
+        )["cuenta"];
+    }
+
+    public function contarComments($postid) {
+        return Klasto::getInstance() -> queryOne(
+            "SELECT count(*) as cuenta FROM comenta WHERE post_id = ?",
+            [$postid]
+        )["cuenta"];
+    }
+
+    public function leHaDadoLike($postid, $login) {
+        return (Klasto::getInstance() -> queryOne(
+            "SELECT count(*) as cuenta FROM `like` WHERE post_id = ? and usuario_login = ?",
+            [$postid, $login]
+        )["cuenta"]) > 0;
+    }
+
+
+    public function obtenerPost($postid) {
+        $post = Klasto::getInstance() -> queryOne(
+            "SELECT `id`, `fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login` FROM `post`"
+                ." WHERE id=?",
+            [$postid],
+            "model\Post"
+        );
+        $post->numLikes = $this->contarLikes($postid);
+        $post->numComments = $this->contarComments($postid);
+        $categorias = $this->obtenerCategorias();
+        $post->categoria = $categorias[$post->categoria_post_id]["descripcion"];
+        return $post;
+    }
+
+
     public function obtenerUltimosPosts($page=0) {
-
-        /** TO-DO: Está sin probar aún */
-
         global $config;
         $limit = $config["post_per_page"];
         $offset = $page * $limit;
@@ -54,18 +88,39 @@ use dawfony\Klasto;
         );
         $categorias = $this->obtenerCategorias();
         foreach ($posts as $post) {
-            $post->numLikes = Klasto::getInstance() -> queryOne(
-                "SELECT count(*) as cuenta FROM `like` WHERE post_id = ?",
-                [$post->id]
-            )["cuenta"];
-            $post->numComments = Klasto::getInstance() -> queryOne(
-                "SELECT count(*) as cuenta FROM comenta WHERE post_id = ?",
-                [$post->id]
-            )["cuenta"];
+            $post->numLikes = $this->contarLikes($post->id);
+            $post->numComments = $this->contarComments($post->id);
             $post->categoria = $categorias[$post->categoria_post_id]["descripcion"];
         }
         return $posts;
     }
 
+    public function obtenerPostsPorUsuario($login) {
+        return Klasto::getInstance() -> query(
+            "SELECT post.id, fecha, resumen, descripcion as categoria"
+                ." FROM post JOIN categoria_post ON categoria_post_id = categoria_post.id"
+                ." WHERE usuario_login = ?"
+                ." ORDER BY fecha DESC",
+            [$login],
+            "model\Post"
+        );
+    }
+
+
+    
+
+    function insertarPost(&$post) {
+        Klasto::getInstance() -> execute(
+            "INSERT INTO `post`(`fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login`)"
+                ." VALUES (?,?,?,?,?,?)",
+            [
+                $post->fecha, $post->resumen, $post->texto,
+                $post->foto, $post->categoria_post_id, $post->usuario_login
+            ]
+        );
+        $post->id = Klasto::getInstance()->getInsertId();
+
+
+    }
 
 }

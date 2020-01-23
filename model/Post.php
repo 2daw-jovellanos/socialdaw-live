@@ -13,4 +13,5 @@ class Post {
     public $categoria = "";
     public $numLikes = 0;
     public $numComments = 0;
+    public $like = false;
 }
