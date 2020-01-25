@@ -51,7 +51,10 @@ class PostController extends Controller {
     function verPost($postid) {
         $orm = new Orm;
         $post = $orm ->obtenerPost($postid);
-        $post->like = $orm->leHaDadoLike($post->id,$_SESSION["login"]);
+        if (isset($_SESSION["login"])) {
+            $post->like = $orm->leHaDadoLike($post->id,$_SESSION["login"]);
+            
+        }
         echo Ti::render("view/post.phtml", compact("post"));
     }
 
