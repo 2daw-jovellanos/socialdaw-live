@@ -10,9 +10,11 @@ function likeClicked(postid) {
             var contadorEl = document.querySelector("#likecontador"+postid);
             
             if (res.estado) {
-                corazonEl.classList.add("text-danger");
+                corazonEl.classList.add("text-danger"); // Color rojo
+                corazonEl.classList.add("heartBeat"); // efecto de animate.css
             } else {
                 corazonEl.classList.remove("text-danger");
+                corazonEl.classList.remove("heartBeat");
             }
             contadorEl.innerHTML = res.numLikes;
             

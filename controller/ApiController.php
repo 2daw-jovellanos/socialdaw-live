@@ -1,6 +1,5 @@
 <?php
 namespace controller;
-use \model\Usuario;
 use \model\Orm;
 require_once ("funciones.php");
 
@@ -17,11 +16,9 @@ class ApiController extends Controller
             die (json_encode(["msg"=>"No logueado"]));
         }
 
-        // Programar para que
-        // devuelva el estado y la cantidad de likes para un post
-        // dado su id
-        $data["estado"] = (boolean)rand(0,1);
-        $data["numLikes"] = rand(0,100);
+        $orm = new Orm;
+        $data["estado"] = $orm->darOQuitarLike($postid, $_SESSION["login"]);
+        $data["numLikes"] = $orm->contarLikes($postid);
 
         echo json_encode( $data );
     }
