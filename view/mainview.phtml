@@ -15,10 +15,7 @@ global $URL_PATH;
         <?php \dawfony\Ti::endBlock(); ?>
     </title>
     <?php /* jquery cdn */ ?>
-    <script
-			  src="https://code.jquery.com/jquery-3.4.1.js"
-			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-			  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <?php /* Bootstrap. Las rutas deben ser absolutas, porque estamos haciendo rewrite */ ?>
     <link rel="stylesheet" href="<?= $URL_PATH ?>/vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <script src="<?= $URL_PATH ?>/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
@@ -29,7 +26,7 @@ global $URL_PATH;
     <?php /* Javascript de este proyecto */ ?>
     <script src="<?= $URL_PATH ?>/js/main.js"></script>
     <script>
-        var URL_PATH="<?= $URL_PATH ?>"; // Pasamos el URL_PATH de php a Javascript.
+        var URL_PATH = "<?= $URL_PATH ?>"; // Pasamos el URL_PATH de php a Javascript.
     </script>
     <?php /*Para añadir lineas al head desde las plantillas derivadas*/ ?>
     <?php \dawfony\Ti::startBlock("head"); ?>
@@ -47,7 +44,7 @@ global $URL_PATH;
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" >
         <a class="navbar-brand" href="<?= $URL_PATH ?>/">Lo último</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -55,26 +52,28 @@ global $URL_PATH;
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                
-                <?php if (!isset($_SESSION["login"])): // no hay usuario logueado?>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= $URL_PATH ?>/registro">Registro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= $URL_PATH ?>/login">Login</a>
-                </li>
-                <?php else: // si hay usuario logueado?>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= $URL_PATH ?>/siguiendo">Siguiendo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= $URL_PATH ?>/perfil/<?= $_SESSION["login"] ?>">Tu perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="confirmarLogout()">Cerrar sesión</a>
-                </li>
-                <?php endif;?>
-  
+
+                <?php if (!isset($_SESSION["login"])) : // no hay usuario logueado
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $URL_PATH ?>/registro">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $URL_PATH ?>/login">Login</a>
+                    </li>
+                <?php else : // si hay usuario logueado
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $URL_PATH ?>/siguiendo">Siguiendo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $URL_PATH ?>/perfil/<?= $_SESSION["login"] ?>">Tu perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="confirmarLogout()">Cerrar sesión</a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
@@ -87,6 +86,9 @@ global $URL_PATH;
     Bloque "content" en Main view.
     Sustituye en las clases que extiende.
     <?php \dawfony\Ti::endBlock(); ?>
+    <footer class="rounded p-4 mt-2 text-center bg-light">
+     © <?=date("Y")?> Copyright: socialdaw
+    </footer>
 </body>
 
 </html>

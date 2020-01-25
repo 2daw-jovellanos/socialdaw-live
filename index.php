@@ -38,7 +38,7 @@ Macaw::get($URL_PATH . '/post/new', "controller\PostController@formularioNuevoPo
 Macaw::post($URL_PATH . '/post/new', "controller\PostController@procesarNuevoPost");
 
 // nuevo comentario
-Macaw::post($URL_PATH . '/comentario/new', "controller\PostController@procesarNuevoComentario");
+Macaw::post($URL_PATH . '/post/(:num)/comentario/new', "controller\PostController@procesarNuevoComentario");
 
 
 

@@ -15,7 +15,6 @@ class PostController extends Controller {
         if (isset($_SESSION["login"])) {
             foreach($posts as $post) {
                 $post->like = $orm->leHaDadoLike($post->id,$_SESSION["login"]);
-                var_dump($post->like);
             }
         }
         echo Ti::render("view/listado.phtml",compact("posts"));
@@ -50,23 +49,24 @@ class PostController extends Controller {
     }
 
     function verPost($postid) {
-        $post = (new Orm) ->obtenerPost($postid);
-        //var_dump($post);
+        $orm = new Orm;
+        $post = $orm ->obtenerPost($postid);
+        $post->like = $orm->leHaDadoLike($post->id,$_SESSION["login"]);
         echo Ti::render("view/post.phtml", compact("post"));
     }
 
-    function procesarNuevoComentario() {
+    function procesarNuevoComentario($postid) {
         global $URL_PATH;
         if (!isset($_SESSION["rol_id"])) {
             throw new \Exception("Intento de comentario de usuario no logueado");
         }
         $comentario = new Comentario;
-        $comentario ->post_id = $_REQUEST["post_id"];
+        $comentario ->post_id = $postid;
         $comentario ->fecha = date('Y-m-d H:i:s');
-        $comentario ->texto = $_REQUEST["texto"];
+        $comentario ->texto = sanitizar($_REQUEST["texto"]);
         $comentario ->usuario_login = $_SESSION["login"];
         (new Orm) ->insertarComentario($comentario);
-        header("Location: " . $URL_PATH. "/post/" . $comentario->postid . "#comentarios");
+        header("Location: " . $URL_PATH. "/post/" . $postid . "#comentarios");
     }
 
 }

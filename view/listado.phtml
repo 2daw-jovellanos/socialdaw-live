@@ -28,7 +28,7 @@ global $URL_PATH;
                     <span id="likecontador<?= $post->id ?>">
                         <?= $post->numLikes ?>
                     </span>
-                    <i class="fa fa-comments"></i> <?= $post->numComments ?>
+                    <a href="<?= $URL_PATH ?>/post/<?= $post->id ?>#comentarios"><i class="fa fa-comments"></i></a> <?= $post->numComments ?>
                 </div>
             </div>
         </div>

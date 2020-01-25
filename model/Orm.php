@@ -74,6 +74,15 @@ class Orm
         )["cuenta"];
     }
 
+    public function obtenerComments($postid)
+    {
+        return Klasto::getInstance()->query(
+            "SELECT usuario_login, texto, fecha FROM comenta WHERE post_id = ? ORDER BY fecha DESC",
+            [$postid],
+            "\model\Comentario"
+        );
+    }
+
     public function leHaDadoLike($postid, $login)
     {
         return (Klasto::getInstance()->queryOne(
@@ -92,7 +101,8 @@ class Orm
             "model\Post"
         );
         $post->numLikes = $this->contarLikes($postid);
-        $post->numComments = $this->contarComments($postid);
+        $post->comentarios = $this->obtenerComments($postid);
+        $post->numComments = count($post->comentarios);
         $categorias = $this->obtenerCategorias();
         $post->categoria = $categorias[$post->categoria_post_id]["descripcion"];
         return $post;
@@ -151,7 +161,7 @@ class Orm
 
     function insertarComentario($comentario) {
         Klasto::getInstance()->execute(
-            "INSERT INTO `post`(`post_id`, `usuario_login`, `fecha`, `texto`)"
+            "INSERT INTO `comenta`(`post_id`, `usuario_login`, `fecha`, `texto`)"
                 . " VALUES (?,?,?,?)",
             [$comentario->post_id, $comentario->usuario_login,
             $comentario->fecha, $comentario->texto]
