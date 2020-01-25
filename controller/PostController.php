@@ -2,6 +2,7 @@
 namespace controller;
 require_once "funciones.php";
 use \dawfony\Ti;
+use \model\Comentario;
 use \model\Orm;
 use \model\Post;
 
@@ -55,7 +56,17 @@ class PostController extends Controller {
     }
 
     function procesarNuevoComentario() {
-        
+        global $URL_PATH;
+        if (!isset($_SESSION["rol_id"])) {
+            throw new \Exception("Intento de comentario de usuario no logueado");
+        }
+        $comentario = new Comentario;
+        $comentario ->post_id = $_REQUEST["post_id"];
+        $comentario ->fecha = date('Y-m-d H:i:s');
+        $comentario ->texto = $_REQUEST["texto"];
+        $comentario ->usuario_login = $_SESSION["login"];
+        (new Orm) ->insertarComentario($comentario);
+        header("Location: " . $URL_PATH. "/post/" . $comentario->postid . "#comentarios");
     }
 
 }

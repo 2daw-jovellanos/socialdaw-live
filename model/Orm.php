@@ -148,4 +148,13 @@ class Orm
         );
         $post->id = Klasto::getInstance()->getInsertId();
     }
+
+    function insertarComentario($comentario) {
+        Klasto::getInstance()->execute(
+            "INSERT INTO `post`(`post_id`, `usuario_login`, `fecha`, `texto`)"
+                . " VALUES (?,?,?,?)",
+            [$comentario->post_id, $comentario->usuario_login,
+            $comentario->fecha, $comentario->texto]
+        );
+    }
 }
