@@ -17,11 +17,6 @@ class Orm
         );
     }
 
-    /**
-     * Obtiene usuario
-     *
-     * @return mixed el usuario o null si no se encuentra.¡
-     */
     public function obtenerUsuario($login)
     {
         return Klasto::getInstance()->queryOne(
@@ -31,6 +26,46 @@ class Orm
         );
     }
 
+    public function contarSeguidores($login)
+    {
+        return Klasto::getInstance()->queryOne(
+            "SELECT count(*) as cuenta from sigue WHERE usuario_login_seguido = ? ",
+            [$login]
+        )["cuenta"];
+    }
+
+    public function contarSiguiendo($login)
+    {
+        return Klasto::getInstance()->queryOne(
+            "SELECT count(*) as cuenta from sigue WHERE usuario_login_seguidor = ? ",
+            [$login]
+        )["cuenta"];
+    }
+
+    public function loSigues($tulogin, $login)
+    {
+        return Klasto::getInstance()->queryOne(
+            "SELECT count(*) as cuenta from sigue"
+                ." WHERE usuario_login_seguidor = ? "
+                ." AND usuario_login_seguido = ? ",
+            [$tulogin, $login]
+        )["cuenta"] > 0;
+    }
+
+    public function seguir($tulogin, $login) {
+        Klasto::getInstance()->execute(
+            "INSERT INTO sigue(usuario_login_seguidor, usuario_login_seguido)"
+                . " VALUES(?,?)",
+                [$tulogin, $login]
+        );
+    }
+
+    public function noSeguir($tulogin, $login) {
+        Klasto::getInstance()->execute(
+            "DELETE FROM sigue WHERE usuario_login_seguidor=? AND usuario_login_seguido=?",
+                [$tulogin, $login]
+        );
+    }
 
     public function darOQuitarLike($postid, $login)
     {

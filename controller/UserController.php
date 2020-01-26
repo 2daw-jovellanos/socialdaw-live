@@ -68,7 +68,34 @@ class UserController extends Controller
         $orm = new Orm;
         $user = $orm->obtenerUsuario($login);
         $posts = $orm->obtenerPostsPorUsuario($login);
+        $user->seguidores = $orm->contarSeguidores($login);
+        $user->siguiendo = $orm->contarSiguiendo($login);
+        if (isset($_SESSION["login"])) {
+            $user->loSigues = $orm->loSigues($_SESSION["login"], $login);
+        }
         echo \dawfony\Ti::render("view/perfil.phtml",compact("user", "posts"));
+    }
+
+    public function seguirPerfil($login)
+    {
+        global $URL_PATH;
+        if (!isset($_SESSION["rol_id"])) {
+            throw new \Exception("Intento de seguir a un usuario por parte de usuario no logueado");
+        }
+        $orm = new Orm;
+        $orm->seguir($_SESSION["login"], $login);
+        header("Location: $URL_PATH/perfil/$login");
+    }
+    
+    public function noSeguirPerfil($login)
+    {
+        global $URL_PATH;
+        if (!isset($_SESSION["rol_id"])) {
+            throw new \Exception("Intento de dejar de seguir a un usuario por parte de usuario no logueado");
+        }
+        $orm = new Orm;
+        $orm->noSeguir($_SESSION["login"], $login);
+        header("Location: $URL_PATH/perfil/$login");
     }
 
 

@@ -9,4 +9,5 @@ class Usuario {
     public $rol_id;
     public $seguidores = 0;
     public $siguiendo = 0;
+    public $loSigues = false;
 }

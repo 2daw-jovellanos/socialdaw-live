@@ -3,3 +3,4 @@ function confirmarLogout() {
         location.href=URL_PATH + "/logout";
     }
 }
+

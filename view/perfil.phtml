@@ -13,9 +13,27 @@ global $URL_PATH;
         <h5><?= $user->nombre ?></h5>
 
         <div>
-            <i class="fa fa-users"></i>
-            Siguiendo:<?= $user->siguiendo ?>;
-            Seguidores: <?= $user->seguidores ?>;
+            <p>
+                <i class="fa fa-users"></i>
+                Siguiendo <span class="badge badge-secondary"><?= $user->siguiendo ?></span>
+                - Seguidores <span class="badge badge-secondary"><?= $user->seguidores ?></span>
+            </p>
+            <?php if (isset($_SESSION["rol_id"])): ?>
+                <?php if ($user->loSigues): ?>
+                    <a href="<?=$URL_PATH.'/perfil/'.$user->login.'/noseguir'?>" class="btn btn-secondary btn-sm">
+                        Dejar de seguir a <?=$user->login?>
+                    </a>
+                <?php elseif ($_SESSION["login"] != $user->login): ?>
+                    <a href="<?=$URL_PATH.'/perfil/'.$user->login.'/seguir'?>" class="btn btn-primary btn-sm">
+                        Seguir a <?=$user->login?>
+                    </a>
+                <?php else: ?>
+                    <div class="alert alert-info">Este es tu perfil</div>
+                <?php endif; ?>
+            <?php else: ?>
+                <div class="alert alert-info">Inicia sesión para seguir a <?=$user->login?></div>
+            <?php endif; ?>
+
         </div>
     </div>
 </div>

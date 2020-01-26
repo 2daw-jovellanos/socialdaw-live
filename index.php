@@ -34,6 +34,9 @@ Macaw::get($URL_PATH . '/logout', "controller\UserController@hacerLogout");
 // ver perfil
 Macaw::get($URL_PATH . '/perfil/(:any)', "controller\UserController@verPerfil");
 
+// seguir y dejar de seguir
+Macaw::get($URL_PATH . '/perfil/(:any)/seguir', "controller\UserController@seguirPerfil");
+Macaw::get($URL_PATH . '/perfil/(:any)/noseguir', "controller\UserController@noSeguirPerfil");
 // ver post
 Macaw::get($URL_PATH . '/post/(:num)', "controller\PostController@verPost");
 
