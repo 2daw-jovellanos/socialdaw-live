@@ -13,7 +13,7 @@ global $URL_PATH;
             <div class="row">
                 <div class="col-sm-6"><a href="<?= $URL_PATH ?>/post/<?= $post->id ?>" class="btn btn-outline-primary btn-sm">Leer más</a></div>
                 
-                <div class="offset-sm-1 col-sm-5">
+                <div class="offset-sm-1 col-sm-5 mb-3">
                     <?php /*Pasamos el id del post al evento de javascript. Enlace solo si usuario logueado*/?>
                     <?php if (isset($_SESSION["login"])): ?>
                     <a href="javascript:void(0)" onclick="likeClicked(<?= $post->id ?>)">

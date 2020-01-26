@@ -28,23 +28,37 @@ global $URL_PATH;
     <script>
         var URL_PATH = "<?= $URL_PATH ?>"; // Pasamos el URL_PATH de php a Javascript.
     </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Hammersmith+One&display=swap&subset=latin-ext');
+        #mainjumbo.jumbotron {
+            background-image: url('<?= $URL_PATH ?>/assets/background.jpg');
+            background-size: cover;
+            background-position: bottom;
+            height: 100%;
+        }
+        .myfont {
+            font-family: 'Hammersmith One', sans-serif; 
+        }
+    </style>
     <?php /*Para añadir lineas al head desde las plantillas derivadas*/ ?>
     <?php \dawfony\Ti::startBlock("head"); ?>
     <?php \dawfony\Ti::endBlock(); ?>
 </head>
 
 <body class="container">
-    <div class="jumbotron shadow">
-        <h2 class="mb-4">
-            SocialDaw
-        </h2>
-        <p class="mb-4">
-            Tu red de anime, jpop y kpop
-        </p>
+    <div class="jumbotron shadow" id="mainjumbo">
+        <div class="text-center myfont">
+            <img class="img-fluid w-60" src="<?= $URL_PATH ?>/assets/logo.png" alt="sociadaw logo">
+            <br>
+            <h3><em>Tu red de anime, jpop y kpop</em></h3>
+        </div> 
+
+            
+
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info sticky-top myfont">
         <a class="navbar-brand" href="<?= $URL_PATH ?>/">Lo último</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -78,7 +92,7 @@ global $URL_PATH;
 
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>
     </nav>
@@ -86,8 +100,8 @@ global $URL_PATH;
     Bloque "content" en Main view.
     Sustituye en las clases que extiende.
     <?php \dawfony\Ti::endBlock(); ?>
-    <footer class="rounded p-4 mt-2 text-center bg-light">
-     © <?=date("Y")?> Copyright: socialdaw
+    <footer class="rounded p-4 mt-2 text-center bg-light myfont">
+        © <?= date("Y") ?> Copyright: socialdaw
     </footer>
 </body>
 
