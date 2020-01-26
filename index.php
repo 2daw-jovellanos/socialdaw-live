@@ -37,6 +37,12 @@ Macaw::get($URL_PATH . '/perfil/(:any)', "controller\UserController@verPerfil");
 // seguir y dejar de seguir
 Macaw::get($URL_PATH . '/perfil/(:any)/seguir', "controller\UserController@seguirPerfil");
 Macaw::get($URL_PATH . '/perfil/(:any)/noseguir', "controller\UserController@noSeguirPerfil");
+
+// ver posts de usuarios seguidos
+Macaw::get($URL_PATH . '/siguiendo', "controller\PostController@listarSeguidos");
+Macaw::get($URL_PATH . '/siguiendo/pag/(:num)', "controller\PostController@listarSeguidos");
+
+
 // ver post
 Macaw::get($URL_PATH . '/post/(:num)', "controller\PostController@verPost");
 

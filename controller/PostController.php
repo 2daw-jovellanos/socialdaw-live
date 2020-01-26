@@ -27,6 +27,27 @@ class PostController extends Controller {
         echo Ti::render("view/listado.phtml",compact("posts","cuenta", "titulo", "subtitulo", "numpaginas", "pagina", "ruta"));
     }
 
+    function listarSeguidos($pagina = 1) {
+        global $config;
+        global $URL_PATH;
+        $orm = new Orm;
+        $login = $_SESSION["login"];
+        $posts = $orm ->obtenerPostsSeguidos($login, $pagina);
+        // añadir si tienen like del usuario logueado
+        if (isset($_SESSION["login"])) {
+            foreach($posts as $post) {
+                $post->like = $orm->leHaDadoLike($post->id,$_SESSION["login"]);
+            }
+        }
+        $cuenta = $orm ->contarPostsSeguidos($login);
+        $numpaginas = ceil($cuenta / $config["post_per_page"]);
+        $titulo = "Posts de usuarios seguidos";
+        $subtitulo = "Página $pagina de $numpaginas";
+        $ruta = "$URL_PATH/siguiendo/pag/";
+        echo Ti::render("view/listado.phtml",compact("posts","cuenta", "titulo", "subtitulo", "numpaginas", "pagina", "ruta"));
+    }
+
+
     function formularioNuevoPost() {
         if (!isset($_SESSION["rol_id"])) {
             throw new \Exception("Intento de inserción de usuario no logueado");

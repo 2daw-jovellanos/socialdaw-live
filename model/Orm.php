@@ -171,6 +171,41 @@ class Orm
         return $posts;
     }
 
+
+    public function contarPostsSeguidos($login) {
+        return Klasto::getInstance()->queryOne(
+            "SELECT count(*) as cuenta"
+                . " FROM `post` JOIN `sigue` ON post.usuario_login = sigue.usuario_login_seguido"
+                . " WHERE sigue.usuario_login_seguidor = ?",
+            [$login]
+        )["cuenta"];
+    }
+
+    public function obtenerPostsSeguidos($login, $page = 1)
+    {
+        global $config;
+        $limit = $config["post_per_page"];
+        $offset = ($page -1) * $limit;
+        $posts = Klasto::getInstance()->query(
+            "SELECT `id`, `fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login`"
+                . " FROM `post` JOIN `sigue` ON post.usuario_login = sigue.usuario_login_seguido"
+                . " WHERE sigue.usuario_login_seguidor = ?"
+                . " ORDER BY `fecha` DESC"
+                . " LIMIT $limit OFFSET $offset",
+            [$login],
+            "model\Post"
+        );
+        $categorias = $this->obtenerCategorias();
+        foreach ($posts as $post) {
+            $post->numLikes = $this->contarLikes($post->id);
+            $post->numComments = $this->contarComments($post->id);
+            $post->categoria = $categorias[$post->categoria_post_id]["descripcion"];
+        }
+        return $posts;
+    }
+
+
+
     public function obtenerPostsPorUsuario($login)
     {
         return Klasto::getInstance()->query(
