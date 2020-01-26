@@ -109,11 +109,16 @@ class Orm
     }
 
 
-    public function obtenerUltimosPosts($page = 0)
+    
+    public function contarUltimosPosts(){
+        return Klasto::getInstance()->queryOne("SELECT count(*) as cuenta FROM `post`")["cuenta"];
+    }
+
+    public function obtenerUltimosPosts($page = 1)
     {
         global $config;
         $limit = $config["post_per_page"];
-        $offset = $page * $limit;
+        $offset = ($page -1) * $limit;
         $posts = Klasto::getInstance()->query(
             "SELECT `id`, `fecha`, `resumen`, `texto`, `foto`, `categoria_post_id`, `usuario_login`"
                 . " FROM `post`"

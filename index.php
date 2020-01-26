@@ -16,6 +16,10 @@ session_start();
 // página principal
 Macaw::get($URL_PATH . '/', "controller\PostController@listarLoUltimo");
 
+// loultimo
+Macaw::get($URL_PATH . '/loultimo', "controller\PostController@listarLoUltimo");
+Macaw::get($URL_PATH . '/loultimo/pag/(:num)', "controller\PostController@listarLoUltimo");
+
 // registro
 Macaw::get($URL_PATH . '/registro', "controller\UserController@formularioRegistro");
 Macaw::post($URL_PATH . '/registro', "controller\UserController@procesarRegistro");

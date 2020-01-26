@@ -8,16 +8,23 @@ use \model\Post;
 
 class PostController extends Controller {
 
-    function listarLoUltimo() {
+    function listarLoUltimo($pagina = 1) {
+        global $config;
+        global $URL_PATH;
         $orm = new Orm;
-        $posts = $orm ->obtenerUltimosPosts();
+        $posts = $orm ->obtenerUltimosPosts($pagina);
         // añadir si tienen like del usuario logueado
         if (isset($_SESSION["login"])) {
             foreach($posts as $post) {
                 $post->like = $orm->leHaDadoLike($post->id,$_SESSION["login"]);
             }
         }
-        echo Ti::render("view/listado.phtml",compact("posts"));
+        $cuenta = $orm ->contarUltimosPosts();
+        $numpaginas = ceil($cuenta / $config["post_per_page"]);
+        $titulo = "Últimos posts";
+        $subtitulo = "Página $pagina de $numpaginas";
+        $ruta = "$URL_PATH/loultimo/pag/";
+        echo Ti::render("view/listado.phtml",compact("posts","cuenta", "titulo", "subtitulo", "numpaginas", "pagina", "ruta"));
     }
 
     function formularioNuevoPost() {
