@@ -44,18 +44,27 @@ function convertYoutube($string)
     <?= convertYoutube($post->texto) ?>
 </div>
 <hr>
-<?php $placeholder = ($post->numComments == 0 ? "Sé el primero en comentar" : "Escribe aquí tu comentario") ?>
-<h4 id="comentarios">Comentarios</h4>
-<form method="POST" action="<?= $URL_PATH ?>/post/<?= $post->id ?>/comentario/new">
-    <div class="form-group row">
-        <div class="col-sm-8">
-            <textarea placeholder="<?= $placeholder ?>" class="form-control" rows="2" name="texto" id="texto"></textarea>
+<?php if (isset($_SESSION["login"])) : ?>
+    <?php $placeholder = ($post->numComments == 0 ? "Sé el primero en comentar" : "Escribe aquí tu comentario") ?>
+    <h4 id="comentarios">Comentarios</h4>
+    <form method="POST" action="<?= $URL_PATH ?>/post/<?= $post->id ?>/comentario/new">
+        <div class="form-group row">
+            <div class="col-sm-8">
+                <textarea placeholder="<?= $placeholder ?>" class="form-control" rows="2" name="texto" id="texto"></textarea>
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-success">Comentar</button>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <button type="submit" class="btn btn-success">Comentar</button>
-        </div>
+    </form>
+<?php else : ?>
+    <div class="alert alert-info">
+        Inicia sesión para comentar
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
-</form>
+<?php endif ?>
 <?php foreach ($post->comentarios as $comentario) : ?>
     <div class="row border-top border-rounded">
         <div class="col-sm-8">
