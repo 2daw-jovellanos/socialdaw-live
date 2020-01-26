@@ -3,8 +3,8 @@ global $URL_PATH;
 \dawfony\Ti::extend("view/mainview.phtml");
 \dawfony\Ti::startBlock("content");
 ?>
-<h1><?= $titulo ?></h1>
-<h2><?= $subtitulo ?></h2>
+<h1 class="myfont"><?= $titulo ?></h1>
+<h4><?= $subtitulo ?></h4>
 <?php foreach ($posts as $post) : ?>
     <div class="row border border-secondary rounded ml-0 mr-0 mt-1">
         <div class="col-sm-4 p-1">
