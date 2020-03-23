@@ -1,7 +1,7 @@
 RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} ".ini" [OR]
-RewriteCond %{REQUEST_FILENAME} ".sql" 
+RewriteCond %{REQUEST_FILENAME} "\.ini$" [OR]
+RewriteCond %{REQUEST_FILENAME} "\.sql$" 
 RewriteRule ^(.*)$ - [F,L]
 
 # Allow any files or directories that exist to be displayed directly
